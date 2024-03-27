@@ -7,9 +7,9 @@ import java.awt.event.MouseMotionListener;
 import Main.Game;
 import Main.GamePanel;
 
-public class MosueIputs implements MouseListener,MouseMotionListener {
+public class MouseInputs implements MouseListener,MouseMotionListener {
 	private GamePanel gamePanel;
-	public MosueIputs(GamePanel gamePanel) {
+	public MouseInputs(GamePanel gamePanel) {
 		this.gamePanel = gamePanel;
 		
 	}
