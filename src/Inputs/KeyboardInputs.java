@@ -10,16 +10,10 @@ import Main.Game;
 import static Utilz.Constants.Directions.*;
 
 public class KeyboardInputs implements KeyListener{
-
-//	private static final int UP = 0;
-//	private static final int LEFT = 1;
-//	private static final int DOWN = 2;
-//	private static final int RIGHT = 3;
 	private GamePanel gamePanel;
 	
     public KeyboardInputs(GamePanel gamePanel) {
 	 this.gamePanel = gamePanel;
-	
  }
 	@Override  
 	public void keyTyped(KeyEvent e) {
@@ -31,16 +25,19 @@ public class KeyboardInputs implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_W:
-			gamePanel.setDirection(UP);
+			gamePanel.getGame().getPlayer().setUp(true);
+			
 			break;
 		case KeyEvent.VK_A:
-			gamePanel.setDirection(LEFT);
+		
+			gamePanel.getGame().getPlayer().setLeft(true);
 			break;
 		case KeyEvent.VK_S:
-			gamePanel.setDirection(DOWN);
+			gamePanel.getGame().getPlayer().setDown(true);
 			break;
 		case KeyEvent.VK_D:
-			gamePanel.setDirection(RIGHT);
+			gamePanel.getGame().getPlayer().setRight(true);
+			
 			break;
 		
 		}
@@ -52,27 +49,18 @@ public class KeyboardInputs implements KeyListener{
 		
 		switch (e.getKeyCode()) {
 		case KeyEvent.VK_W:
-			gamePanel.setMoving(false);
+			gamePanel.getGame().getPlayer().setUp(false);
 			break;
 		case KeyEvent.VK_A:
-			gamePanel.setMoving(false);
+			gamePanel.getGame().getPlayer().setLeft(false);
 			break;
 		case KeyEvent.VK_S:
-			gamePanel.setMoving(false);
+			gamePanel.getGame().getPlayer().setDown(false);
 			break;
 		case KeyEvent.VK_D:
-			gamePanel.setMoving(false);
+			gamePanel.getGame().getPlayer().setRight(false);
 			break;
 		}
-//		switch (e.getKeyCode()) {
-//		case KeyEvent.VK_A: {
-//			System.out.println("A");break;
-//		}
-//		case KeyEvent.VK_D:{
-//			System.out.println("D");break;
-//		}
-//		
-//		}
 	}
 }
 
