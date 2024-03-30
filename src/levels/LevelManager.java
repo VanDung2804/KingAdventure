@@ -42,5 +42,11 @@ public class LevelManager {
 	public void update() {
 		
 	}
+	
+
+	public Level getCurrentLevel() {
+		// TODO Auto-generated method stub
+		return levelOne;
+	}
 
 }

@@ -19,6 +19,9 @@ public class GameWinDow{
         jframe.addWindowFocusListener(new WindowFocusListener() {
 			
 			@Override
+			
+			
+			
 			public void windowLostFocus(WindowEvent e) {
 				gamePanel.getGame().windowFocus();
 				

@@ -3,14 +3,20 @@ package levels;
 
 
 public class Level {
-	private int[][] lvData;
+	private int[][] lvlData;
 	
 	public Level(int[][] lvlData) {
-		this.lvData = lvlData;
+		this.lvlData = lvlData;
 	}
 
 	public int getSpriteIndex(int x,int y) {
-		return lvData[y][x];
+		return lvlData[y][x];
+	}
+	
+
+	public int[][] getLevelData() {
+		
+		return lvlData;
 	}
 	
 

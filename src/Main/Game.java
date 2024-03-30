@@ -13,9 +13,8 @@ public class Game implements Runnable{
 	private final int UPS_SET = 200;
 	private LevelManager levelManager;
 	
-	
 	public static final int TILES_DEFAULT_SIZE = 32;
-	public static final float SCALE = 1.5f;
+	public static final float SCALE = 2f;	
 	public static final int TILES_IN_WIDTH = 26;
 	public static final int TILES_IN_HEIGHT = 14;
 	public static final int TILES_SIZE = (int) (TILES_DEFAULT_SIZE*SCALE);
@@ -27,7 +26,7 @@ public class Game implements Runnable{
 	
 	private Player player;
 	public Game() {
-		initClass();
+		initClasses();
 		gamePanel = new GamePanel(this);
 		gameWindow = new GameWinDow(gamePanel);
 		//yeu cau ban phim chuot bat su kien ngay lap tuc
@@ -37,10 +36,10 @@ public class Game implements Runnable{
 
 	}
 	
-	private void initClass() {
-		player = new Player(200,200);
+	private void initClasses() {
 		levelManager = new LevelManager(this);
-		
+		player = new Player(200, 200, (int) (78 * SCALE), (int) (58 * SCALE));
+		player.loadlvlData(levelManager.getCurrentLevel().getLevelData());
 	}
 
 	private void startGameLoop() {
@@ -54,9 +53,9 @@ public class Game implements Runnable{
 	}
 	
 	public void render(Graphics g) {
-	
 		levelManager.draw(g);
 		player.render(g);
+		
 	}
 
 	@Override
@@ -95,7 +94,7 @@ public class Game implements Runnable{
 
 			if (System.currentTimeMillis() - lastCheck >= 1000) {
 				lastCheck = System.currentTimeMillis();
-				System.out.println("FPS: " + frames + " | UPS: " + updates);
+//				System.out.println("FPS: " + frames + " | UPS: " + updates);
 				frames = 0;
 				updates = 0;
 
