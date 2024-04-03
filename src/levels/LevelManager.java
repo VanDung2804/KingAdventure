@@ -5,11 +5,12 @@ import java.awt.image.BufferedImage;
 
 import Main.Game;
 import Utilz.LoadSave;
+import Utilz.HelpMethods;
 import levels.Level;
 
 public class LevelManager {
 	private Game game;
-	private BufferedImage[] levelSprite;
+	private BufferedImage[] levelSprite;///
 	private Level levelOne;
 	public LevelManager(Game game) {
 		this.game = game;
@@ -27,7 +28,6 @@ public class LevelManager {
 				int index = j*12+i;
 				levelSprite[index] = img.getSubimage(i*32, j*32,32 , 32);
 			}
-		
 	}
 
 	public void draw(Graphics g) {

@@ -10,8 +10,10 @@ public class GameWinDow{
 	private JFrame jframe;
 	public GameWinDow(GamePanel gamePanel) {
 		jframe = new JFrame();
+		//tao nut dong cua so
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jframe.setLocationRelativeTo(null);
+        //de cua so ra giua man hinh
+        //jframe.setLocationRelativeTo(null);
         jframe.add(gamePanel);
         jframe.pack();
         jframe.setResizable(false);

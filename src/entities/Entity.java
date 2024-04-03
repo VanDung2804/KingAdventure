@@ -17,7 +17,6 @@ public abstract class Entity {
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		
 	}
 	
 	protected void drawHitbox(Graphics g) {

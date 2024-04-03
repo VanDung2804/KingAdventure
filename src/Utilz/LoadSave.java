@@ -24,7 +24,7 @@ public class LoadSave {
 			e.printStackTrace();
 		} finally {
 			try {
-				is.close();
+				is.close();	
 			}catch (Exception e) {
 				e.printStackTrace();
 			}

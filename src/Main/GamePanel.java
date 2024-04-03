@@ -1,5 +1,6 @@
 package Main;
-
+import Inputs.MouseInputs;
+import Inputs.KeyboardInputs;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.KeyListener;
@@ -10,8 +11,7 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import Inputs.MouseInputs;
-import Inputs.KeyboardInputs;
+
 import static Main.Game.GAME_HEIGHT;
 import static Main.Game.GAME_WIDTH;
 
@@ -26,7 +26,7 @@ public class GamePanel extends JPanel{
 	 
 	public GamePanel(Game game) {
 		mouseInputs = new MouseInputs(this);
-		this.game = game;
+		this.game = game;//truy cap vao trang thai va phuong thu cau game
 		setPanelSize();
 		addKeyListener(new KeyboardInputs(this));
 		addMouseListener(mouseInputs);
@@ -44,6 +44,8 @@ public class GamePanel extends JPanel{
 	
 	}
 
+	
+	//ve lai giao dien tro choi
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		game.render(g);
