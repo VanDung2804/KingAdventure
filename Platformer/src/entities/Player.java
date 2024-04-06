@@ -2,12 +2,16 @@ package entities;
 
 import static utilz.Constants.PlayerConstants.*;
 import static utilz.HelpMethods.*;
+
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Float;
 import java.awt.image.BufferedImage;
 
+import gamestates.Playing;
 import main.Game;
 import utilz.LoadSave;
-
 public class Player extends Entity {
 	private BufferedImage[][] animations;
 	private int aniTick, aniIndex, aniSpeed = 25;
@@ -25,6 +29,13 @@ public class Player extends Entity {
 	private float jumpSpeed = -2.25f * Game.SCALE;
 	private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
 	private boolean inAir = false;
+	private int healthBarWidth = (int) (150 * Game.SCALE);
+	private int healthBarHeight = (int) (4 * Game.SCALE);
+	private int healthBarXStart = (int) (34 * Game.SCALE);
+	private int healthBarYStart = (int) (14 * Game.SCALE);
+	private int maxHealth = 10;
+	private int currentHealth = maxHealth;
+	private int healthWidth = healthBarWidth;
 
 	public Player(float x, float y, int width, int height) {
 		super(x, y, width, height);
@@ -212,6 +223,20 @@ public class Player extends Entity {
 
 	public void setJump(boolean jump) {
 		this.jump = jump;
+	}
+	public void resetAll() {
+		resetDirBooleans();
+		inAir = false;
+		attacking = false;
+		moving = false;
+		playerAction = IDLE;
+		currentHealth = maxHealth;
+
+		hitbox.x = x;
+		hitbox.y = y;
+
+		if (!IsEntityOnFloor(hitbox, lvlData))
+			inAir = true;
 	}
 
 }

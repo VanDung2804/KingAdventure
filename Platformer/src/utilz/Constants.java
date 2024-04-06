@@ -3,57 +3,67 @@ package utilz;
 import main.Game;
 
 public class Constants {
+	public static class EnemyConstants {
+		public static final int PIG= 0;
 
-//	public static class EnemyConstants {
-//		public static final int CRABBY = 0;
-//
-//		public static final int IDLE = 0;
-//		public static final int RUNNING = 1;
-//		public static final int ATTACK = 2;
-//		public static final int HIT = 3;
-//		public static final int DEAD = 4;
-//
-//		public static final int CRABBY_WIDTH_DEFAULT = 72;
-//		public static final int CRABBY_HEIGHT_DEFAULT = 32;
-//
-//		public static final int CRABBY_WIDTH = (int) (CRABBY_WIDTH_DEFAULT * Game.SCALE);
-//		public static final int CRABBY_HEIGHT = (int) (CRABBY_HEIGHT_DEFAULT * Game.SCALE);
-//
-//		public static int GetSpriteAmount(int enemy_type, int enemy_state) {
-//
+		public static final int IDLE = 5;
+		public static final int RUNNING = 7;
+		public static final int ATTACK = 0;
+		public static final int HIT = 4;
+		public static final int DEAD = 1;
+		public static final int GROUND = 3;
+		public static final int FALL = 2;
+		public static final int JUM = 6;
+
+		public static final int PIG_WIDTH_DEFAULT = 34;
+		public static final int PIG_HEIGHT_DEFAULT = 28;
+
+		public static final int PIG_WIDTH = (int) (PIG_WIDTH_DEFAULT * Game.SCALE);
+		public static final int PIG_HEIGHT = (int) (PIG_HEIGHT_DEFAULT * Game.SCALE);
+
+		public static int GetSpriteAmount(int enemy_type, int enemy_state) {
+
+			switch (enemy_type) {
+			case PIG:
+				switch (enemy_state) {
+				case IDLE:
+					return 11;
+				case RUNNING:
+					return 6;
+				case ATTACK:
+					return 5;
+				case HIT:
+					return 2;
+				case DEAD:
+					return 4;
+				}
+			}
+
+			return 0;
+
+		}
+
+//		public static int GetMaxHealth(int enemy_type) {
 //			switch (enemy_type) {
-//			case CRABBY:
-//				switch (enemy_state) {
-//				case IDLE:
-//					return 9;
-//				case RUNNING:
-//					return 6;
-//				case ATTACK:
-//					return 7;
-//				case HIT:
-//					return 4;
-//				case DEAD:
-//					return 5;
-//				}
+//			case PIG:
+//				return 10;
+//			default:
+//				return 1;
 //			}
-//
-//			return 0;
-//
 //		}
 //
-//	}
-
-//	public static class Environment {
-//		public static final int BIG_CLOUD_WIDTH_DEFAULT = 448;
-//		public static final int BIG_CLOUD_HEIGHT_DEFAULT = 101;
-//		public static final int SMALL_CLOUD_WIDTH_DEFAULT = 74;
-//		public static final int SMALL_CLOUD_HEIGHT_DEFAULT = 24;
+//		public static int GetEnemyDmg(int enemy_type) {
+//			switch (enemy_type) {
+//			case PIG:
+//				return 15;
+//			default:
+//				return 0;
+//			}
 //
-//		public static final int BIG_CLOUD_WIDTH = (int) (BIG_CLOUD_WIDTH_DEFAULT * Game.SCALE);
-//		public static final int BIG_CLOUD_HEIGHT = (int) (BIG_CLOUD_HEIGHT_DEFAULT * Game.SCALE);
-//		public static final int SMALL_CLOUD_WIDTH = (int) (SMALL_CLOUD_WIDTH_DEFAULT * Game.SCALE);
-//		public static final int SMALL_CLOUD_HEIGHT = (int) (SMALL_CLOUD_HEIGHT_DEFAULT * Game.SCALE);
-//	}
+//		}
+
+	}
+	
 
 	public static class UI {
 		public static class Buttons {
@@ -104,7 +114,6 @@ public class Constants {
 		public static final int JUMP = 8;
 		public static final int RUN = 9;
 
-
 		public static int GetSpriteAmount(int player_action) {
 			switch (player_action) {
 			case RUN:
@@ -112,7 +121,7 @@ public class Constants {
 			case IDLE:
 				return 10;
 			case JUMP:
-				return 0;
+				return 1;
 			case ATTACK:
 				return 3;
 			case GROUND: 
@@ -122,4 +131,5 @@ public class Constants {
 			}
 		}
 	}
+
 }
