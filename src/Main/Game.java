@@ -1,13 +1,16 @@
 package Main;
 
 import java.awt.Graphics;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.JFrame;
 
+import GameStates.GameOptions;
 import GameStates.GameState;
 import GameStates.Menu;
 import GameStates.Playing;
 import Levels.LevelManager;
+import Ui.AudioOptions;
 
 public class Game implements Runnable {
 
@@ -19,7 +22,9 @@ public class Game implements Runnable {
 
 	private Playing playing;
 	private Menu menu;
+	private GameOptions gameOptions;
 	private LevelManager level1;
+	private AudioOptions audioOptions;
 
 	public final static int TILES_DEFAULT_SIZE = 32;
 	public final static float SCALE = 1.2f;
@@ -42,6 +47,8 @@ public class Game implements Runnable {
 	}
 
 	private void initClasses() {
+		audioOptions = new AudioOptions();	
+		gameOptions = new GameOptions(this);
 		menu = new Menu(this);
 		playing = new Playing(this);
 		level1 = new LevelManager(this);
@@ -63,6 +70,7 @@ public class Game implements Runnable {
 		case HIGHSCORE:
 			break;
 		case OPTIONS:
+			gameOptions.update();
 			break;
 		case QUIT:
 			System.exit(0);
@@ -77,6 +85,9 @@ public class Game implements Runnable {
 			break;
 		case PLAYING:
 			playing.draw(g);
+			break;
+		case OPTIONS:
+			gameOptions.draw(g);
 			break;
 		default:
 			break;
@@ -139,5 +150,13 @@ public class Game implements Runnable {
 
 	public Playing getPlaying() {
 		return playing;
+	}
+	
+	public AudioOptions getAudioOptions() {
+		return audioOptions;
+	}
+
+	public GameOptions getGameOptions() {
+		return gameOptions;
 	}
 }

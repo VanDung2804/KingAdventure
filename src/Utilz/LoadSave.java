@@ -24,8 +24,15 @@ public class LoadSave {
 	public static final String Menu_Background_img = "background_menu.png";
 	public static final String LEVEL_ONE_DATA = "Level_1.png";
 	public static final String LEVEL_ATLAS = "Sprite.png";
-	public static final String STATUS_BAR = "health_power_bar.png";
+	public static final String STATUS_BAR = "Live Bar.png";
+	public static final String HEART = "Small Heart Idle (18x14).png";
 	public static final String COMPLETED = "level-completed.png";
+	public static final String DIAMON = "Diamon.png";
+	public static final String BOX_ATLAS = "Box.png";
+	public static final String TRAP_ATLAS = "gai3.png";
+	public static final String CANNON = "cannon_atlas.png";
+	public static final String VOLUME_BUTTONS = "volume_buttons.png";
+	public static final String OPTIONS_MENU = "options_background.png";
 
 	
 	public static BufferedImage GetSpriteAtlas(String fileName) {

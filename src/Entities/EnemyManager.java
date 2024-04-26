@@ -66,7 +66,7 @@ public class EnemyManager {
 		for (Piggy c : pigs)
 			if (c.isActive())
 				if (attackBox.intersects(c.getHitbox())) {
-					c.hurt(10);
+					c.hurt(1);
 					return;
 				}
 	}

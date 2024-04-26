@@ -69,6 +69,7 @@ public class LevelManager {
 		Level newLevel = levels.get(lvlIndex);
 		newLevel.createEnemies(lvlIndex);
 		newLevel.calcPlayerSpawn(lvlIndex);
+//		newLevel.createContainers(lvlIndex);
 		game.getPlaying().getEnemyManager().loadEnemies(newLevel);
 		game.getPlaying().getPlayer().loadLvlData(newLevel.getLevelData());
 	}

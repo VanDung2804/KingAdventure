@@ -3,6 +3,54 @@ package Utilz;
 import Main.Game;
 
 public class Constants {
+	public static class ObjectConstants {
+
+		public static final int RED_POTION = 0;
+		public static final int BOX = 2;
+		public static final int SPIKE1 = 4;
+		public static final int SPIKE2 = 5;
+		
+		public static final int CANNON_LEFT = 6;
+		public static final int CANNON_RIGHT = 7;
+
+		public static final int DIAMON = 15;
+		
+		public static final int CONTAINER_WIDTH_DEFAULT = 30;
+		public static final int CONTAINER_HEIGHT_DEFAULT = 25;
+		public static final int CONTAINER_WIDTH = (int) (Game.SCALE * CONTAINER_WIDTH_DEFAULT);
+		public static final int CONTAINER_HEIGHT = (int) (Game.SCALE * CONTAINER_HEIGHT_DEFAULT);
+
+		public static final int POTION_WIDTH_DEFAULT = 18;
+		public static final int POTION_HEIGHT_DEFAULT = 14;
+		public static final int POTION_WIDTH = (int) (Game.SCALE * POTION_WIDTH_DEFAULT);
+		public static final int POTION_HEIGHT = (int) (Game.SCALE * POTION_HEIGHT_DEFAULT);
+		
+		public static final int SPIKE_WIDTH_DEFAULT = 32;
+		public static final int SPIKE_HEIGHT_DEFAULT = 32;
+		public static final int SPIKE_WIDTH = (int) (Game.SCALE * SPIKE_WIDTH_DEFAULT);
+		public static final int SPIKE_HEIGHT = (int) (Game.SCALE * SPIKE_HEIGHT_DEFAULT);
+		
+		public static final int CANNON_WIDTH_DEFAULT = 40;
+		public static final int CANNON_HEIGHT_DEFAULT = 26;
+		public static final int CANNON_WIDTH = (int) (CANNON_WIDTH_DEFAULT * Game.SCALE);
+		public static final int CANNON_HEIGHT = (int) (CANNON_HEIGHT_DEFAULT * Game.SCALE);
+
+		public static int GetSpriteAmount(int object_type) {
+			switch (object_type) {
+			case DIAMON :
+				return 7;
+			case BOX:
+				return 3;	
+			case SPIKE1, SPIKE2:
+				return 1;
+			case CANNON_LEFT, CANNON_RIGHT:
+				return 7;
+			}
+			
+			return 1;
+		}
+	}
+	
 	public static class UI {
 		public static class Buttons {
 			public static final int B_WIDTH_DEFAULT = 280;
@@ -20,6 +68,17 @@ public class Constants {
 			public static final int URM_SIZE_DEFAULT = 56;
 			public static final int URM_SIZE = (int) (URM_SIZE_DEFAULT * Game.SCALE);	
 		}
+		
+		public static class VolumeButtons {
+			public static final int VOLUME_DEFAULT_WIDTH = 28;
+			public static final int VOLUME_DEFAULT_HEIGHT = 44;
+			public static final int SLIDER_DEFAULT_WIDTH = 215;
+
+			public static final int VOLUME_WIDTH = (int) (VOLUME_DEFAULT_WIDTH * Game.SCALE);
+			public static final int VOLUME_HEIGHT = (int) (VOLUME_DEFAULT_HEIGHT * Game.SCALE);
+			public static final int SLIDER_WIDTH = (int) (SLIDER_DEFAULT_WIDTH * Game.SCALE);
+		}
+		
 	}
 	
 	public static class Directions {
@@ -100,7 +159,7 @@ public class Constants {
 		public static int GetMaxHealth(int enemy_type) {
 			switch(enemy_type) {
 			case PIGGY:
-				return 15;
+				return 2;
 			default:
 				return 1;
 			}
@@ -109,7 +168,7 @@ public class Constants {
 		public static int GetEnemyDmg(int enemy_type) {
 			switch (enemy_type) {
 			case PIGGY:
-				return 10;
+				return 1;
 			default:
 				return 0;
 			}

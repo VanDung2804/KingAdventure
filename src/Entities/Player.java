@@ -18,6 +18,7 @@ public class Player extends Entity{
 	private BufferedImage[][] animation;
 	
 	private int aniTick,aniIndex,aniSpeed = 25;
+	private int heartIndex;
 	private int flipX = 0, flipW = 1;
 	private int[][] lvlData;
 	private int playerAction = IDLE ;
@@ -29,25 +30,29 @@ public class Player extends Entity{
 	private float yDrawOffset = 19 *Game.SCALE;
 
 	private float airSpeed = 0f;
-	private float gravity = 0.04f * Game.SCALE;
+	private float gravity = 0.02f * Game.SCALE;
 	private float jumpSpeed = -2.25f * Game.SCALE;
 	private float fallSpeedAfterCollision = 0.5f * Game.SCALE;
 	private boolean inAir = false;
 	
 	//Status Bar UI
 	private BufferedImage statusBarImg;
+	private BufferedImage[] heart;
 
-	private int statusBarWidth = (int) (192 * Game.SCALE);
-	private int statusBarHeight = (int) (58 * Game.SCALE);
-	private int statusBarX = (int) (10 * Game.SCALE);
-	private int statusBarY = (int) (10 * Game.SCALE);
+	
+	private int statusBarWidth = (int) (99 * Game.SCALE);
+	private int statusBarHeight = (int) (51 * Game.SCALE);
+	private int statusBarX = (int) (40 * Game.SCALE);
+	private int statusBarY = (int) (30 * Game.SCALE);
 
 	private int healthBarWidth = (int) (150 * Game.SCALE);
 	private int healthBarHeight = (int) (4 * Game.SCALE);
-	private int healthBarXStart = (int) (34 * Game.SCALE);
-	private int healthBarYStart = (int) (14 * Game.SCALE);
+	private int healthBarXStart = (int) (57 * Game.SCALE);
+	private int healthBarYStart = (int) (45 * Game.SCALE);
 
-	private int maxHealth = 100;
+	private int tileY = 0;
+
+	private int maxHealth = 3;
 	private int currentHealth = maxHealth;
 	private int healthWidth = healthBarWidth;
 	
@@ -64,9 +69,8 @@ public class Player extends Entity{
 		initHitbox(x, y, (int)35, (int) 37);
 		initAttackBox();
 	}
-
+	
 	public void update() {
-		updateHealthBar();
 
 		if (currentHealth <= 0) {
 			playing.setGameOver(true);
@@ -74,9 +78,13 @@ public class Player extends Entity{
 		}
 		updateAttackBox();
 		updatePos();
+		if (moving)
+			checkPotionTouched();
+
 		if (attacking)
 			checkAttack();
 		updateAnimationTick();
+		updateHeartTick();
 		setAnimation();
 	}
 
@@ -115,8 +123,9 @@ public class Player extends Entity{
 		g.drawRect((int)attackBox.x, (int)attackBox.y, (int)attackBox.width, (int)attackBox.height);
 	}
 	
-	private void updateHealthBar() {
-		healthWidth = (int) ((currentHealth / (float) maxHealth) * healthBarWidth);
+	
+	private void checkPotionTouched() {
+		playing.checkPotionTouched(hitbox);
 	}
 	
 	public void changeHealth(int value) {
@@ -130,8 +139,21 @@ public class Player extends Entity{
 	
 	private void drawUI(Graphics g) {
 		g.drawImage(statusBarImg, statusBarX, statusBarY,  statusBarWidth, statusBarHeight, null);
-		g.setColor(Color.red);
-		g.fillRect(healthBarXStart + statusBarX, healthBarYStart + statusBarY, healthWidth, healthBarHeight);
+		switch(currentHealth) {
+		case 1:
+			g.drawImage(heart[heartIndex], healthBarXStart, healthBarYStart, (int)(27 * Game.SCALE), (int)(21 * Game.SCALE), null);
+			break;
+		case 2:
+			g.drawImage(heart[heartIndex], healthBarXStart, healthBarYStart, (int)(27 * Game.SCALE), (int)(21 * Game.SCALE), null);
+			g.drawImage(heart[heartIndex], healthBarXStart + 20, healthBarYStart, (int)(27 * Game.SCALE), (int)(21 * Game.SCALE), null);
+			break;
+		case 3:
+			g.drawImage(heart[heartIndex], healthBarXStart, healthBarYStart, (int)(27 * Game.SCALE), (int)(21 * Game.SCALE), null);
+			g.drawImage(heart[heartIndex], healthBarXStart + 20, healthBarYStart, (int)(27 * Game.SCALE), (int)(21 * Game.SCALE), null);
+			g.drawImage(heart[heartIndex], healthBarXStart + 40, healthBarYStart, (int)(27 * Game.SCALE), (int)(21 * Game.SCALE), null);
+			break;
+		}
+		
 	}
 
 	private void updateAnimationTick() {
@@ -147,11 +169,22 @@ public class Player extends Entity{
 		}
 	}
 	
+	private void updateHeartTick() {
+		aniTick++;
+		if (aniTick >= aniSpeed) { 
+			aniTick = 0;
+			heartIndex++;
+			if (heartIndex >= 8) 
+				heartIndex = 0;
+		}
+	}
+	
 	private void checkAttack() {
 		if (attackChecked || aniIndex != 1)
 			return;
 		attackChecked = true;
 		playing.checkEnemyHit(attackBox);
+		playing.checkObjectHit(attackBox);
 
 	}
 	
@@ -253,13 +286,20 @@ public class Player extends Entity{
 
 	private void loadAnimation() {
 		BufferedImage img = LoadSave.GetSpriteAtlas(LoadSave.Player);
+		BufferedImage heartSprite = LoadSave.GetSpriteAtlas(LoadSave.HEART);
 		
 		animation = new BufferedImage[10][11];
+		heart = new BufferedImage[8];
+		
 		for(int j=0;j<animation.length;j++) 
 			for(int i=0;i<animation[j].length;i++) 
 				animation[j][i] = img.getSubimage(i*78,j*58, 78, 58);
 		
+		for(int i=0;i<heart.length;i++) 
+			heart[i] = heartSprite.getSubimage(i*18, 0, 18, 14);
+		
 		 statusBarImg = LoadSave.GetSpriteAtlas(LoadSave.STATUS_BAR);
+		 
 	}
 	
 	public void resetDirBooleans() {
@@ -324,12 +364,14 @@ public class Player extends Entity{
 		moving = false;
 		playerAction = IDLE;
 		currentHealth = maxHealth;
-		x = 100;
-		y = 200;
+
 		hitbox.x = x;
 		hitbox.y = y;
 
 		if (!IsEntityOnFloor(hitbox, lvlData))
 			inAir = true;
+	}
+	public int getTileY() {
+		return tileY;
 	}
 }
